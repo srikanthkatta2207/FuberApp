@@ -12,5 +12,16 @@
 </head>
 <body>
 <h1>FuberApp</h1>
+<div class="form">
+    <form action="book_car" method="post" onsubmit="return validate()">
+        <table>
+            <tr>
+                <td>Enter Name: </td>
+                <td><input id="name" name="name"></td>
+                <td><input type="submit" value="Submit"></td>
+            </tr>
+        </table>
+    </form>
+</div>
 </body>
 </html>

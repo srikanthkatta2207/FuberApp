@@ -49,5 +49,14 @@ public class FuberClientControllerTest
             .andExpect( view().name("index") );
     }
 
+    @Test
+    public void shouldGetBookCarWhenEverUserClickOnBookButton() throws Exception
+    {
+        mvc.perform( MockMvcRequestBuilders.post( "/book_car" )
+                    .param( "name","srikanth" ))
+                     .andExpect( status().isOk() )
+                     .andExpect( view().name("book_car"));
+    }
+
 
 }
