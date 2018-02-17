@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
@@ -83,7 +82,7 @@ public class FuberClientController
     }
 
     @RequestMapping( value = "/end", method = RequestMethod.GET )
-    public void getFinalPrice( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException
+    public void getFinalPrice( HttpServletResponse response ) throws ServletException, IOException
     {
         response.setContentType( "text/html" );
         PrintWriter out = response.getWriter();
