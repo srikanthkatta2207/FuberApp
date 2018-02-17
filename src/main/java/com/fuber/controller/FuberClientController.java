@@ -10,9 +10,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 
 @Controller
 @SessionAttributes( "customer" )
@@ -52,12 +54,18 @@ public class FuberClientController
     {
         createCustomer( name, longitude, latitude );
         Car car = carPoolService.getCarNearBy();
+        car.setAvailability( false );
         model.addAttribute( "customerName", name );
         model.addAttribute( "car", car );
         return "book_car";
+    };
+
+    @RequestMapping(value="/cars", method= RequestMethod.GET)
+    public @ResponseBody ArrayList<Car> getAvailableCars() {
+        return carPoolService.getAllAvailableCars();
     }
 
-    ;
+
 
 
 }

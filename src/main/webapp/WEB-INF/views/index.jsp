@@ -28,7 +28,7 @@
                 <td><input id="latitude" name="latitude"></td>
             </tr>
             <tr>
-                <td><input type="submit" value="Submit"></td>
+                <td><input type="submit" value="Book Car"></td>
             </tr>
         </table>
     </form>

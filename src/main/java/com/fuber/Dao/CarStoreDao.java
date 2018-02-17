@@ -11,9 +11,9 @@ import java.util.ArrayList;
 @Repository
 public class CarStoreDao
 {
-    public  static ArrayList<Car> cars = new ArrayList<>();
+    public  static final ArrayList<Car> cars = new ArrayList<>();
 
-    public static void loadData() {
+    static{
         cars.add(0, new NormalCar( new Location( 1.0, 5.0 ), 1 ));
         cars.add(1,new PinkCar( new Location( 3.0, 6.0 ), 2 ));
         cars.add(2,new NormalCar( new Location( 6.0, 10.0 ), 3 ));
@@ -27,8 +27,6 @@ public class CarStoreDao
     public ArrayList<Car> getAllAvailableCars()
 
     {
-        loadData();
-
         ArrayList<Car> availableCars = new ArrayList<>();
 
         for ( Car car : cars )
@@ -40,7 +38,5 @@ public class CarStoreDao
         }
 
         return availableCars;
-    }
-
-    ;
+    };
 }
