@@ -49,11 +49,15 @@
       <artifactId>tomcat-embed-jasper</artifactId>
       <scope>provided</scope>
     </dependency>
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-core</artifactId>
+    </dependency>
   </dependencies>
 
   <properties>
     <java.version>1.8</java.version>
-    <start-class>src.main.java</start-class>
+    <start-class>fuber.FuberApplication</start-class>
   </properties>
 
   <build>
