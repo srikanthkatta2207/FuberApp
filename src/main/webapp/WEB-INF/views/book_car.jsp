@@ -10,5 +10,6 @@
 <h1>FuberApp</h1>
 <hr>
 <h2>Welcome ${customerName}</h2>
+<h2>Your nearset Car is: ${car.getNumber()}</h2>
 </body>
 </html>

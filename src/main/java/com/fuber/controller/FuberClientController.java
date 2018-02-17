@@ -1,7 +1,9 @@
 package fuber.controller;
 
+import fuber.model.Car;
 import fuber.model.Customer;
 import fuber.model.Location;
+import fuber.services.CarPoolService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,6 +23,9 @@ public class FuberClientController
 
     @Autowired
     Location location;
+
+    @Autowired
+    CarPoolService carPoolService;
 
     @Autowired
     HttpSession httpSession;
@@ -46,9 +51,13 @@ public class FuberClientController
     public String bookCar( @RequestParam( "name" ) String name, @RequestParam( "longitude" ) String longitude, @RequestParam( "latitude" ) String latitude, Model model )
     {
         createCustomer( name, longitude, latitude );
+        Car car = carPoolService.getCarNearBy();
         model.addAttribute( "customerName", name );
+        model.addAttribute( "car", car );
         return "book_car";
-    };
+    }
+
+    ;
 
 
 }

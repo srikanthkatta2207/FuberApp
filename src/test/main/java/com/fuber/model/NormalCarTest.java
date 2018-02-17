@@ -12,7 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import static org.junit.Assert.assertEquals;
 
 @RunWith( MockitoJUnitRunner.class )
-@SpringBootTest( classes = Location.class )
+@SpringBootTest( classes = NormalCar.class )
 @AutoConfigureMockMvc
 public class NormalCarTest
 {

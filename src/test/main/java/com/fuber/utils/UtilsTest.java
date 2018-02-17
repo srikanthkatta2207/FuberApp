@@ -1,5 +1,8 @@
-package fuber.model;
+package fuber.utils;
 
+import fuber.Utils.Utils;
+import fuber.model.Location;
+import fuber.model.PinkCar;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,12 +15,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 import static org.junit.Assert.assertEquals;
 
 @RunWith( MockitoJUnitRunner.class )
-@SpringBootTest( classes = Customer.class )
+@SpringBootTest( classes = PinkCar.class )
 @AutoConfigureMockMvc
-public class CustomerTest
+public class UtilsTest
 {
     @InjectMocks
-    Customer customer;
+    Utils utils;
 
     @Before
     public void setup()
@@ -25,17 +28,15 @@ public class CustomerTest
         MockitoAnnotations.initMocks( this );
     }
 
-    @Test
-    public void shouldGetLongitudeAndLatitude() throws Exception
-    {
-        Location location = new Location( 100.00,200.00 );
+   @Test
+    public void shouldCalculateDistanceBetweenTwoLocations() {
+       Location locaiton1 = new Location( 2.0,3.0 );
+       Location location2 = new Location( 5.0,6.0 );
 
-        customer.setName( "test" );
-        customer.setLocation( location );
+       double actualDistance = Utils.calculateDistanceBetween(locaiton1,location2);
 
-        assertEquals( customer.getName(), "test");
-        assertEquals( customer.getLocation().getLatitude(),200.00,0.2);
-        assertEquals( customer.getLocation().getLongitude(),100.00,0.2);
-    }
-
+       assertEquals(actualDistance,2.850,.2);
+   }
 }
+
+

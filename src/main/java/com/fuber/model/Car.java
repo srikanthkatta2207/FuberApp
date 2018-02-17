@@ -8,6 +8,7 @@ public abstract class Car
 
     private int number;
 
+    private boolean availability;
 
     public int extraPrice;
 
@@ -40,6 +41,16 @@ public abstract class Car
     public void setNumber( int number )
     {
         this.number = number;
+    }
+
+    public boolean isAvailability()
+    {
+        return availability;
+    }
+
+    public void setAvailability( boolean availability )
+    {
+        this.availability = availability;
     }
 }
 

@@ -1,7 +1,11 @@
 package fuber.controller;
 
+import fuber.Dao.CarStoreDao;
+import fuber.model.Car;
 import fuber.model.Customer;
 import fuber.model.Location;
+import fuber.model.NormalCar;
+import fuber.services.CarPoolService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,6 +23,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import javax.servlet.http.HttpSession;
 
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith( MockitoJUnitRunner.class )
@@ -37,6 +42,12 @@ public class FuberClientControllerTest
 
     @Mock
     HttpSession httpSession;
+
+    @Mock
+    CarStoreDao carStoreDao;
+
+    @Mock
+    CarPoolService carPoolService;
 
     @InjectMocks
     FuberClientController fuberClientController;
@@ -60,18 +71,24 @@ public class FuberClientControllerTest
     {
         mvc.perform( MockMvcRequestBuilders.post( "/" ) )
             .andExpect( status().isOk() )
-            .andExpect( view().name("index") );
+            .andExpect( view().name( "index" ) );
     }
 
     @Test
-    public void shouldGetBookCarWhenEverUserClickOnBookButton() throws Exception
+    public void shouldGetNearByCarWhenEverUserClickOnBookButton() throws Exception
     {
+        Car expectedCar = new NormalCar( new Location( 100.00, 200.00 ), 3 );
+
+        when( carPoolService.getCarNearBy() ).thenReturn( expectedCar );
+
         mvc.perform( MockMvcRequestBuilders.post( "/book_car" )
             .param( "name", "srikanth" )
             .param( "longitude", "200.00" )
             .param( "latitude", "100.00" )
         ).andExpect( status().isOk() )
-            .andExpect( view().name( "book_car" ) );
+            .andExpect( view().name( "book_car" ) )
+            .andExpect( model().attribute( "customerName", "srikanth" ) )
+            .andExpect( model().attribute( "car", expectedCar ) );
     }
 
 
