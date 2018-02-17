@@ -44,7 +44,7 @@ public class PaymentServiceTest
         customer.setLocation(new Location( 1,1 ));
 
         Car car = new NormalCar();
-        car.setLocation( new Location( 1,5 ) );
+        car.setLocation( new Location( 1,1 ) );
 
         when(httpSession.getAttribute( "customer" )).thenReturn( customer );
         when(httpSession.getAttribute( "car" )).thenReturn( car );

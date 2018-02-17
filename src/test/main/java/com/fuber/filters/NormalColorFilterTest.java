@@ -39,7 +39,7 @@ public class NormalColorFilterTest
         availableCars.add( 0, new PinkCar( new Location( 1.0,2.0 ),1 ) );
 
         ArrayList<Car> actualCars= normalColorFilter.applyOn( availableCars );
-        assertEquals( actualCars.size(),2 );
+        assertEquals( actualCars.size(),1);
     }
 
     @Test

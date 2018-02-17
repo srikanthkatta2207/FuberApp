@@ -14,7 +14,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 @Controller
@@ -40,17 +45,6 @@ public class FuberClientController
     public String index()
     {
         return "index";
-    }
-
-    public void createCustomer( String name, String longitude, String latitude )
-    {
-        double long_val = Double.parseDouble( longitude );
-        double lat_val = Double.parseDouble( latitude );
-        location.setLatitude( lat_val );
-        location.setLongitude( long_val );
-        customer.setLocation( location );
-        customer.setName( name );
-        httpSession.setAttribute( "customer", customer );
     }
 
 
@@ -81,8 +75,6 @@ public class FuberClientController
         return "book_car";
     }
 
-    ;
-
     @RequestMapping( value = "/cars", method = RequestMethod.GET )
     public @ResponseBody ArrayList<Car> getAvailableCars()
     {
@@ -91,15 +83,28 @@ public class FuberClientController
     }
 
     @RequestMapping( value = "/end", method = RequestMethod.GET )
-    public @ResponseBody String getFinalPrice()
+    public void getFinalPrice( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException
     {
-
+        response.setContentType( "text/html" );
+        PrintWriter out = response.getWriter();
         double finalPrice = paymentService.getPayment();
-
-        httpSession.invalidate();
-
-        return "You should pay : " + finalPrice;
+        out.print( "You should pay: " + finalPrice + "\n" );
+        httpSession.removeAttribute("customer");
+        httpSession.removeAttribute("car");
+        out.print( "You are successfully logged out!" );
+        out.close();
     }
 
+
+    public void createCustomer( String name, String longitude, String latitude )
+    {
+        double long_val = Double.parseDouble( longitude );
+        double lat_val = Double.parseDouble( latitude );
+        location.setLatitude( lat_val );
+        location.setLongitude( long_val );
+        customer.setLocation( location );
+        customer.setName( name );
+        httpSession.setAttribute( "customer", customer );
+    }
 
 }
