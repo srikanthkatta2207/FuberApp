@@ -4,6 +4,7 @@ import fuber.model.Car;
 import fuber.model.Customer;
 import fuber.model.Location;
 import fuber.services.CarPoolService;
+import fuber.services.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,6 +31,9 @@ public class FuberClientController
     CarPoolService carPoolService;
 
     @Autowired
+    PaymentService paymentService;
+
+    @Autowired
     HttpSession httpSession;
 
     @RequestMapping( "/" )
@@ -50,9 +54,12 @@ public class FuberClientController
     }
 
     @RequestMapping( value = "/book_car", method = RequestMethod.POST )
-    public String bookCar( @RequestParam( "name" ) String name, @RequestParam( "longitude" ) String longitude, @RequestParam( "latitude" ) String latitude, Model model )
+    public String bookCar( @RequestParam( "name" ) String name,
+        @RequestParam( "cur_longitude" ) String curLongitude, @RequestParam( "cur_latitude" ) String curLatitude,
+        @RequestParam( "des_longitude" ) String desLongitude, @RequestParam( "des_latitude" ) String desLatitude,
+        Model model )
     {
-        createCustomer( name, longitude, latitude );
+        createCustomer( name, curLongitude, curLatitude );
         Car car = carPoolService.getCarNearBy();
         if ( car == null )
         {
@@ -60,7 +67,11 @@ public class FuberClientController
             return "reject_page";
         }
 
+        double des_long_val = Double.parseDouble( desLongitude );
+        double des_lat_val = Double.parseDouble( desLatitude );
         car.setAvailability( false );
+        car.setLocation( new Location( des_long_val, des_lat_val ) );
+        httpSession.setAttribute( "car", car );
         model.addAttribute( "customerName", name );
         model.addAttribute( "car", car );
         return "book_car";
@@ -72,6 +83,17 @@ public class FuberClientController
     public @ResponseBody ArrayList<Car> getAvailableCars()
     {
         return carPoolService.getAllAvailableCars();
+    }
+
+    @RequestMapping( value = "/end", method = RequestMethod.GET )
+    public @ResponseBody String getFinalPrice()
+    {
+
+        double finalPrice = paymentService.getPayment();
+
+        httpSession.invalidate();
+
+        return "You should pay : " + finalPrice;
     }
 
 

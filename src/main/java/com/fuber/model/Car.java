@@ -2,7 +2,7 @@ package fuber.model;
 
 public abstract class Car
 {
-    private static final int PRICE = 1;
+    public static final int PRICE = 1;
 
     private Location Location;
 
@@ -20,6 +20,16 @@ public abstract class Car
     {
         Location = location;
         this.number = number;
+    }
+
+    public static int getPRICE()
+    {
+        return PRICE;
+    }
+
+    public int getExtraPrice()
+    {
+        return extraPrice;
     }
 
 

@@ -83,13 +83,40 @@ public class FuberClientControllerTest
 
         mvc.perform( MockMvcRequestBuilders.post( "/book_car" )
             .param( "name", "srikanth" )
-            .param( "longitude", "200.00" )
-            .param( "latitude", "100.00" )
+            .param( "cur_longitude", "200.00" )
+            .param( "cur_latitude", "100.00" )
+            .param( "des_longitude", "200.00" )
+            .param( "des_latitude", "100.00" )
         ).andExpect( status().isOk() )
             .andExpect( view().name( "book_car" ) )
             .andExpect( model().attribute( "customerName", "srikanth" ) )
             .andExpect( model().attribute( "car", expectedCar ) );
     }
 
+    @Test
+    public void shouldRedirectDifferentViewIfNoCarsAvailable() throws Exception
+    {
+
+        when( carPoolService.getCarNearBy() ).thenReturn( null );
+        mvc.perform( MockMvcRequestBuilders.post( "/book_car" )
+            .param( "name", "srikanth" )
+            .param( "cur_longitude", "200.00" )
+            .param( "cur_latitude", "100.00" )
+            .param( "des_longitude", "200.00" )
+            .param( "des_latitude", "100.00" )
+        ).andExpect( status().isOk() )
+            .andExpect( view().name( "reject_page" ) );
+
+    }
+
+    @Test
+    public void shouldReturnListOfAvailableCars() throws Exception
+    {
+        when( carPoolService.getAllAvailableCars() ).thenReturn( null );
+
+        mvc.perform( MockMvcRequestBuilders.get( "/cars" )
+        ).andExpect( status().isOk() )
+            .andExpect( content().string(""));
+    }
 
 }

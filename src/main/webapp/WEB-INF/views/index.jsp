@@ -20,12 +20,16 @@
                 <td><input id="name" name="name"></td>
             </tr>
             <tr>
-                <td>Longitude:</td>
-                <td><input id="longitude" name="longitude"></td>
+                <td>Current Longitude:</td>
+                <td><input id="cur_longitude" name="cur_longitude"></td>
+                <td>Current Latitude:</td>
+                <td><input id="cur_latitude" name="cur_latitude"></td>
             </tr>
             <tr>
-                <td>Latitude:</td>
-                <td><input id="latitude" name="latitude"></td>
+                <td>Destination Longitude:</td>
+                <td><input id="des_longitude" name="des_longitude"></td>
+                <td>Destination Latitude:</td>
+                <td><input id="des_latitude" name="des_latitude"></td>
             </tr>
             <tr>
                 <td><input type="submit" value="Book Car"></td>
