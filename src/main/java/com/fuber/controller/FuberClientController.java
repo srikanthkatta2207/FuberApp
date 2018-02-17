@@ -54,18 +54,25 @@ public class FuberClientController
     {
         createCustomer( name, longitude, latitude );
         Car car = carPoolService.getCarNearBy();
+        if ( car == null )
+        {
+            model.addAttribute( "reject", true );
+            return "reject_page";
+        }
+
         car.setAvailability( false );
         model.addAttribute( "customerName", name );
         model.addAttribute( "car", car );
         return "book_car";
-    };
-
-    @RequestMapping(value="/cars", method= RequestMethod.GET)
-    public @ResponseBody ArrayList<Car> getAvailableCars() {
-        return carPoolService.getAllAvailableCars();
     }
 
+    ;
 
+    @RequestMapping( value = "/cars", method = RequestMethod.GET )
+    public @ResponseBody ArrayList<Car> getAvailableCars()
+    {
+        return carPoolService.getAllAvailableCars();
+    }
 
 
 }

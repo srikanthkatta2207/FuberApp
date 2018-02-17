@@ -25,33 +25,42 @@ public class CarPoolService
     public ArrayList<Car> getAllAvailableCars()
     {
         return carStoreDao.getAllAvailableCars();
-    };
+    }
 
-   public Car getCarNearBy()
+    ;
+
+    public Car getCarNearBy()
     {
-
-        ArrayList<Car> availableCars = getAllAvailableCars();
-
-        Customer customer = (Customer) httpSession.getAttribute( "customer" );
-
-        Location customerLocation = customer.getLocation();
-
-        HashMap<Car, Double> carRanges = new HashMap<>();
-
-        System.out.println("Hello world"+ availableCars.get( 0 ));
-
-        for ( Car car : availableCars )
+        try
         {
+            ArrayList<Car> availableCars = getAllAvailableCars();
 
-            Location carLocation = car.getLocation();
+            Customer customer = (Customer) httpSession.getAttribute( "customer" );
 
-            double distance = Utils.calculateDistanceBetween( customerLocation, carLocation );
+            Location customerLocation = customer.getLocation();
 
-            carRanges.put( car, distance );
+            HashMap<Car, Double> carRanges = new HashMap<>();
+
+            for ( Car car : availableCars )
+            {
+
+                Location carLocation = car.getLocation();
+
+                double distance = Utils.calculateDistanceBetween( customerLocation, carLocation );
+
+                carRanges.put( car, distance );
+            }
+
+            return getCarInMinimumDistanceFromCustomer( carRanges );
+        }
+        catch ( Exception e )
+        {
+            System.out.println( e );
+
+            return null;
         }
 
-        return getCarInMinimumDistanceFromCustomer( carRanges );
-    }
+    };
 
 
     public Car getCarInMinimumDistanceFromCustomer( HashMap<Car, Double> carRanges )

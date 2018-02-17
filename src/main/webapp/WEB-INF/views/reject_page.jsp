@@ -10,8 +10,7 @@
 <h1>FuberApp</h1>
 <hr>
 <h2>Welcome ${customerName}</h2>
-<h3>Your car is booked car number: ${car.getNumber()}</h3>
-<h3>Current location of car is - longitude: ${car.getLocation().getLongitude()} latitude:${car.getLocation().getLatitude()} </h3>
+<h3>Currently there are no cars available</h3>
 </div>
 </body>
 </html>
