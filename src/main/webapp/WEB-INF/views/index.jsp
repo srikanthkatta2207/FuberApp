@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,8 +16,18 @@
     <form action="book_car" method="post" onsubmit="return validate()">
         <table>
             <tr>
-                <td>Enter Name: </td>
+                <td>Enter Name:</td>
                 <td><input id="name" name="name"></td>
+            </tr>
+            <tr>
+                <td>Longitude:</td>
+                <td><input id="longitude" name="longitude"></td>
+            </tr>
+            <tr>
+                <td>Latitude:</td>
+                <td><input id="latitude" name="latitude"></td>
+            </tr>
+            <tr>
                 <td><input type="submit" value="Submit"></td>
             </tr>
         </table>
