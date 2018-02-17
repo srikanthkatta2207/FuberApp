@@ -31,8 +31,7 @@ public class FuberClientController
         return "index";
     }
 
-    @RequestMapping( value = "/book_car", method = RequestMethod.POST )
-    public String bookCar( @RequestParam( "name" ) String name, @RequestParam( "longitude" ) String longitude, @RequestParam( "latitude" ) String latitude, Model model)
+    public void createCustomer( String name, String longitude, String latitude )
     {
         double long_val = Double.parseDouble( longitude );
         double lat_val = Double.parseDouble( latitude );
@@ -40,12 +39,16 @@ public class FuberClientController
         location.setLongitude( long_val );
         customer.setLocation( location );
         customer.setName( name );
-        httpSession.setAttribute( "customer",customer );
+        httpSession.setAttribute( "customer", customer );
+    }
+
+    @RequestMapping( value = "/book_car", method = RequestMethod.POST )
+    public String bookCar( @RequestParam( "name" ) String name, @RequestParam( "longitude" ) String longitude, @RequestParam( "latitude" ) String latitude, Model model )
+    {
+        createCustomer( name, longitude, latitude );
         model.addAttribute( "customerName", name );
         return "book_car";
     };
-
-
 
 
 }
