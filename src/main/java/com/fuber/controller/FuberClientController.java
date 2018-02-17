@@ -19,6 +19,7 @@ public class FuberClientController
     public String bookCar(@RequestParam("name") String name, Model model) {
 
         model.addAttribute( "customerName",name );
+
         return "book_car";
     };
 }
