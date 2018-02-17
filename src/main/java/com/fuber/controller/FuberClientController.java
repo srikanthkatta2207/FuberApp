@@ -53,14 +53,18 @@ public class FuberClientController
         httpSession.setAttribute( "customer", customer );
     }
 
+
     @RequestMapping( value = "/book_car", method = RequestMethod.POST )
     public String bookCar( @RequestParam( "name" ) String name,
         @RequestParam( "cur_longitude" ) String curLongitude, @RequestParam( "cur_latitude" ) String curLatitude,
         @RequestParam( "des_longitude" ) String desLongitude, @RequestParam( "des_latitude" ) String desLatitude,
+        @RequestParam( "filter" ) String color,
         Model model )
     {
         createCustomer( name, curLongitude, curLatitude );
-        Car car = carPoolService.getCarNearBy();
+
+        Car car = carPoolService.getCarNearBy( color );
+
         if ( car == null )
         {
             model.addAttribute( "reject", true );
@@ -82,6 +86,7 @@ public class FuberClientController
     @RequestMapping( value = "/cars", method = RequestMethod.GET )
     public @ResponseBody ArrayList<Car> getAvailableCars()
     {
+
         return carPoolService.getAllAvailableCars();
     }
 

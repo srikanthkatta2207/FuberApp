@@ -4,7 +4,8 @@ public class NormalCar extends Car
 {
     private static final int EXTRA_PRICE = 0;
 
-    public NormalCar() {
+    public NormalCar()
+    {
 
     }
 

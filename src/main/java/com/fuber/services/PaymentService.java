@@ -25,6 +25,8 @@ public class PaymentService
         double travelledDistance = Utils.calculateDistanceBetween( customer.getLocation(), car.getLocation() );
 
         return travelledDistance * (car.PRICE + car.getExtraPrice());
-    };
+    }
+
+    ;
 
 }

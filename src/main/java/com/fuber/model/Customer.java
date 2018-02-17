@@ -9,7 +9,8 @@ public class Customer
 
     Location location;
 
-    public Customer() {
+    public Customer()
+    {
 
     }
 

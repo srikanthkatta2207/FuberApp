@@ -22,10 +22,6 @@ public abstract class Car
         this.number = number;
     }
 
-    public static int getPRICE()
-    {
-        return PRICE;
-    }
 
     public int getExtraPrice()
     {
@@ -46,11 +42,6 @@ public abstract class Car
     public int getNumber()
     {
         return number;
-    }
-
-    public void setNumber( int number )
-    {
-        this.number = number;
     }
 
     public boolean isAvailability()

@@ -11,14 +11,16 @@ import java.util.ArrayList;
 @Repository
 public class CarStoreDao
 {
-    public  static final ArrayList<Car> cars = new ArrayList<>();
+    public static final ArrayList<Car> cars = new ArrayList<>();
 
-    static{
-        cars.add(0, new NormalCar( new Location( 1.0, 5.0 ), 1 ));
-        cars.add(1,new PinkCar( new Location( 3.0, 6.0 ), 2 ));
-        cars.add(2,new NormalCar( new Location( 6.0, 10.0 ), 3 ));
+    static
+    {
+        cars.add( 0, new NormalCar( new Location( 1.0, 5.0 ), 1 ) );
+        cars.add( 1, new PinkCar( new Location( 3.0, 6.0 ), 2 ) );
+        cars.add( 2, new NormalCar( new Location( 6.0, 10.0 ), 3 ) );
 
-        for(Car car: cars) {
+        for ( Car car : cars )
+        {
             car.setAvailability( true );
         }
     }

@@ -16,10 +16,12 @@ public final class Utils
     {
         double d_longitude = location1.getLongitude() - location2.getLongitude();
         double d_latitude = location1.getLatitude() - location2.getLatitude();
-        double a = Math.pow( (sin( d_latitude / 2 )), 2 ) + +cos( location1.getLatitude() ) * cos( location2.getLatitude() ) * Math.pow( (sin( d_longitude   / 2 )), 2 );
+        double a = Math.pow( (sin( d_latitude / 2 )), 2 ) + +cos( location1.getLatitude() ) * cos( location2.getLatitude() ) * Math.pow( (sin( d_longitude / 2 )), 2 );
         double c = 2 * atan2( sqrt( a ), sqrt( 1 - a ) );
         double distance = 6373 * c;
 
-        return distance/1000;
-    };
+        return distance / 1000;
+    }
+
+    ;
 }

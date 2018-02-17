@@ -79,7 +79,7 @@ public class FuberClientControllerTest
     {
         Car expectedCar = new NormalCar( new Location( 100.00, 200.00 ), 3 );
 
-        when( carPoolService.getCarNearBy() ).thenReturn( expectedCar );
+        when( carPoolService.getCarNearBy("normal") ).thenReturn( expectedCar );
 
         mvc.perform( MockMvcRequestBuilders.post( "/book_car" )
             .param( "name", "srikanth" )
@@ -87,6 +87,7 @@ public class FuberClientControllerTest
             .param( "cur_latitude", "100.00" )
             .param( "des_longitude", "200.00" )
             .param( "des_latitude", "100.00" )
+            .param("filter","normal")
         ).andExpect( status().isOk() )
             .andExpect( view().name( "book_car" ) )
             .andExpect( model().attribute( "customerName", "srikanth" ) )
@@ -96,14 +97,15 @@ public class FuberClientControllerTest
     @Test
     public void shouldRedirectDifferentViewIfNoCarsAvailable() throws Exception
     {
+        when( carPoolService.getCarNearBy("normal") ).thenReturn( null );
 
-        when( carPoolService.getCarNearBy() ).thenReturn( null );
         mvc.perform( MockMvcRequestBuilders.post( "/book_car" )
             .param( "name", "srikanth" )
             .param( "cur_longitude", "200.00" )
             .param( "cur_latitude", "100.00" )
             .param( "des_longitude", "200.00" )
             .param( "des_latitude", "100.00" )
+            .param( "filter","normal" )
         ).andExpect( status().isOk() )
             .andExpect( view().name( "reject_page" ) );
 
