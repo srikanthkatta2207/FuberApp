@@ -1,8 +1,10 @@
 package fuber.service;
 
 import fuber.model.Car;
+import fuber.model.Currency;
 import fuber.model.Customer;
 import fuber.model.Location;
+import fuber.model.Money;
 import fuber.model.NormalCar;
 import fuber.services.PaymentService;
 import org.junit.Before;
@@ -49,9 +51,11 @@ public class PaymentServiceTest
         when(httpSession.getAttribute( "customer" )).thenReturn( customer );
         when(httpSession.getAttribute( "car" )).thenReturn( car );
 
-        double actualPrice = paymentService.getPayment();
+        Money actualMoney = paymentService.getPayment();
 
-        assertEquals(0.0,actualPrice,0.2);
+        Money expectedMoney = new Money( 0.0, Currency.dogeCoin() );
+
+        assertEquals(expectedMoney.getAmount(),actualMoney.getAmount(),.2);
 
     }
 
@@ -67,9 +71,11 @@ public class PaymentServiceTest
         when(httpSession.getAttribute( "customer" )).thenReturn( customer );
         when(httpSession.getAttribute( "car" )).thenReturn( car );
 
-        double actualPrice = paymentService.getPayment();
+        Money actualMoney = paymentService.getPayment();
 
-        assertEquals(14.55,actualPrice,0.2);
+        Money expectedMoney = new Money( 14.55, Currency.dogeCoin());
+
+        assertEquals(expectedMoney.getAmount(),actualMoney.getAmount(),.2);
 
     }
 }

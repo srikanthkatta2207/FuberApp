@@ -8,7 +8,8 @@ public class Location
     double longitude;
     double latitude;
 
-    public Location() {
+    public Location()
+    {
 
     }
 

@@ -12,11 +12,12 @@ public abstract class Car
 
     public int extraPrice;
 
-    public Car() {
+    public Car()
+    {
 
     }
 
-    public Car( Location location, int number)
+    public Car( Location location, int number )
     {
         Location = location;
         this.number = number;

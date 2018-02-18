@@ -32,6 +32,7 @@ public class CarPoolService
         return carStoreDao.getAllAvailableCars();
     }
 
+
     public ArrayList<Car> getAllAvailableCars( Filter filter )
     {
 
@@ -41,12 +42,12 @@ public class CarPoolService
     }
 
 
-    public Car getCarNearBy( String  color )
+    public Car getCarNearBy( String color )
     {
         try
         {
 
-            ArrayList<Car> availableCars = getAllAvailableCars( getFilter(color) );
+            ArrayList<Car> availableCars = getAllAvailableCars( getFilter( color ) );
 
             Customer customer = (Customer) httpSession.getAttribute( "customer" );
 
@@ -73,7 +74,9 @@ public class CarPoolService
             return null;
         }
 
-    };
+    }
+
+    ;
 
     public Car getCarInMinimumDistanceFromCustomer( HashMap<Car, Double> carRanges )
     {

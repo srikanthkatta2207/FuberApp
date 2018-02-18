@@ -2,7 +2,6 @@ package fuber.utils;
 
 import fuber.Utils.Utils;
 import fuber.model.Location;
-import fuber.model.PinkCar;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,7 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import static org.junit.Assert.assertEquals;
 
 @RunWith( MockitoJUnitRunner.class )
-@SpringBootTest( classes = PinkCar.class )
+@SpringBootTest( classes = Utils.class )
 @AutoConfigureMockMvc
 public class UtilsTest
 {
@@ -30,10 +29,10 @@ public class UtilsTest
 
    @Test
     public void shouldCalculateDistanceBetweenTwoLocations() {
-       Location locaiton1 = new Location( 2.0,3.0 );
+       Location location1 = new Location( 2.0,3.0 );
        Location location2 = new Location( 5.0,6.0 );
 
-       double actualDistance = Utils.calculateDistanceBetween(locaiton1,location2);
+       double actualDistance = Utils.calculateDistanceBetween(location1,location2);
 
        assertEquals(actualDistance,2.850,.2);
    }

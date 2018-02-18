@@ -2,7 +2,9 @@ package fuber.services;
 
 import fuber.Utils.Utils;
 import fuber.model.Car;
+import fuber.model.Currency;
 import fuber.model.Customer;
+import fuber.model.Money;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +16,7 @@ public class PaymentService
     @Autowired
     HttpSession httpSession;
 
-    public double getPayment()
+    public Money getPayment()
     {
         Customer customer = (Customer) httpSession.getAttribute( "customer" );
 
@@ -24,7 +26,11 @@ public class PaymentService
 
         double travelledDistance = Utils.calculateDistanceBetween( customer.getLocation(), car.getLocation() );
 
-        return travelledDistance * (car.PRICE + car.getExtraPrice());
+        double amount = travelledDistance * (car.PRICE + car.getExtraPrice());
+
+        Money totalMoney = new Money( amount, Currency.dogeCoin() );
+
+        return totalMoney;
     }
 
     ;

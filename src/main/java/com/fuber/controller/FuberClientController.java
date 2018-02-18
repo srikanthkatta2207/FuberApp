@@ -3,6 +3,7 @@ package fuber.controller;
 import fuber.model.Car;
 import fuber.model.Customer;
 import fuber.model.Location;
+import fuber.model.Money;
 import fuber.services.CarPoolService;
 import fuber.services.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +44,7 @@ public class FuberClientController
     @RequestMapping( "/" )
     public String index()
     {
+
         return "index";
     }
 
@@ -58,8 +60,8 @@ public class FuberClientController
         Car car = carPoolService.getCarNearBy( color );
         if ( car == null )
         {
-            httpSession.removeAttribute("customer");
-            httpSession.removeAttribute("car");
+            httpSession.removeAttribute( "customer" );
+            httpSession.removeAttribute( "car" );
             return "reject_page";
         }
 
@@ -81,15 +83,15 @@ public class FuberClientController
         return carPoolService.getAllAvailableCars();
     }
 
-    @RequestMapping( value = "/end", method = RequestMethod.GET )
+    @RequestMapping( value = "/endRide", method = RequestMethod.GET )
     public void getFinalPrice( HttpServletResponse response ) throws ServletException, IOException
     {
         response.setContentType( "text/html" );
         PrintWriter out = response.getWriter();
-        double finalPrice = paymentService.getPayment();
-        out.print( "You should pay: " + finalPrice + "\n" );
-        httpSession.removeAttribute("customer");
-        httpSession.removeAttribute("car");
+        Money money = paymentService.getPayment();
+        out.print( "You should pay: " + money.getAmount() + "\t" + money.getCurrency().getStringRepresentation() );
+        httpSession.removeAttribute( "customer" );
+        httpSession.removeAttribute( "car" );
         out.close();
     }
 
@@ -105,8 +107,10 @@ public class FuberClientController
             customer.setLocation( location );
             customer.setName( name );
             httpSession.setAttribute( "customer", customer );
-        } catch(Exception e) {
-            System.out.println(e);
+        }
+        catch ( Exception e )
+        {
+            System.out.println( e );
         }
     }
 
