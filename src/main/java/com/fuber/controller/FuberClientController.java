@@ -49,24 +49,24 @@ public class FuberClientController
 
     @RequestMapping( value = "/book_car", method = RequestMethod.POST )
     public String bookCar( @RequestParam( "name" ) String name,
-        @RequestParam( "cur_longitude" ) String curLongitude, @RequestParam( "cur_latitude" ) String curLatitude,
-        @RequestParam( "des_longitude" ) String desLongitude, @RequestParam( "des_latitude" ) String desLatitude,
+        @RequestParam( "cur_longitude" ) String currentLongitude, @RequestParam( "cur_latitude" ) String currentLatitude,
+        @RequestParam( "des_longitude" ) String destinationLongitude, @RequestParam( "des_latitude" ) String destinationLatitude,
         @RequestParam( "filter" ) String color,
         Model model )
     {
-        createCustomer( name, curLongitude, curLatitude );
-
+        createCustomer( name, currentLongitude, currentLatitude );
         Car car = carPoolService.getCarNearBy( color );
-
         if ( car == null )
         {
-            model.addAttribute( "reject", true );
+            httpSession.removeAttribute("customer");
+            httpSession.removeAttribute("car");
             return "reject_page";
         }
 
-        double des_long_val = Double.parseDouble( desLongitude );
-        double des_lat_val = Double.parseDouble( desLatitude );
+        double des_long_val = Double.parseDouble( destinationLongitude );
+        double des_lat_val = Double.parseDouble( destinationLatitude );
         car.setAvailability( false );
+        model.addAttribute( "currentCarLocation", car.getLocation() );
         car.setLocation( new Location( des_long_val, des_lat_val ) );
         httpSession.setAttribute( "car", car );
         model.addAttribute( "customerName", name );
@@ -90,20 +90,24 @@ public class FuberClientController
         out.print( "You should pay: " + finalPrice + "\n" );
         httpSession.removeAttribute("customer");
         httpSession.removeAttribute("car");
-        out.print( "You are successfully logged out!" );
         out.close();
     }
 
 
     public void createCustomer( String name, String longitude, String latitude )
     {
-        double long_val = Double.parseDouble( longitude );
-        double lat_val = Double.parseDouble( latitude );
-        location.setLatitude( lat_val );
-        location.setLongitude( long_val );
-        customer.setLocation( location );
-        customer.setName( name );
-        httpSession.setAttribute( "customer", customer );
+        try
+        {
+            double long_val = Double.parseDouble( longitude );
+            double lat_val = Double.parseDouble( latitude );
+            location.setLatitude( lat_val );
+            location.setLongitude( long_val );
+            customer.setLocation( location );
+            customer.setName( name );
+            httpSession.setAttribute( "customer", customer );
+        } catch(Exception e) {
+            System.out.println(e);
+        }
     }
 
 }

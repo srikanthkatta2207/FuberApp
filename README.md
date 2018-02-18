@@ -15,4 +15,13 @@ Fuber is a web application to book the cars near by your location.
   
   run ``mvn package``. It create FuberApp-1.0 in target folder.
   
-  run `` java -jar FuberApp-1.0.jar ``. It will open the application in localhost:8080 port
+  run `` java -jar FuberApp-1.0.jar ``. 
+  
+  It will open the application in localhost:8080 port.
+  
+ ```List of Apis```
+ 
+ To get List of available cars use ``http://localhost:8080/cars``.
+ 
+ 
+

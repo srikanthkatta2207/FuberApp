@@ -25,19 +25,21 @@
                 <td>Current Longitude:</td>
                 <td><input id="cur_longitude" name="cur_longitude"></td>
                 <td>Current Latitude:</td>
-                <td><input id="cur_latitude" name="cur_latitude"></td>
+                <td><input id="cur_latitude" name="cur_latitude" ></td>
             </tr>
             <tr></tr>
             <tr>
                 <td>Destination Longitude:</td>
                 <td><input id="des_longitude" name="des_longitude"></td>
                 <td>Destination Latitude:</td>
-                <td><input id="des_latitude" name="des_latitude"></td>
+                <td><input id="des_latitude" name="des_latitude" ></td>
             </tr>
             <tr></tr>
             <tr>
-                <input type="checkbox" name="filter" value="normal"> Normal Car<br>
-                <input type="checkbox" name="filter" value="pink" checked="checked"> Pink Car<br>
+                <select name="filter">
+                    <option value="normal">Normal Car</option>
+                    <option value="pink">Pink car</option>
+                </select>
             </tr>
             <tr></tr>
             <tr>
